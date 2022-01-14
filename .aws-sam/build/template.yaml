@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda API Discovery function
+Parameters:
+  VPCsubnet1:
+    Type: String
+    Description: Subnet 1 id
+  VPCsubnet2:
+    Type: String
+    Description: Subnet 2 id
+  VPCsecuritygroup:
+    Type: String
+    Description: Subnet group id
+  Region:
+    Type: String
+    Description: region
+  NodeEnv:
+    Type: String
+    Description: node env
+  APIStage:
+    Type: String
+    Description: api stage
+Globals:
+  Function:
+    Timeout: 60
+    Handler: app.handler
+    Runtime: nodejs14.x
+    Environment:
+      Variables:
+        Region:
+          Ref: Region
+        NODE_ENV:
+          Ref: NodeEnv
+        API_Stage:
+          Ref: APIStage
+Resources:
+  APIDiscoveryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: APIDiscoveryFunction
+      CodeUri: APIDiscoveryFunction
+      Events:
+        ScheduledFunction:
+          Type: Schedule
+          Properties:
+            Schedule: rate(15 minutes)
+      Policies:
+      - arn:aws:iam::aws:policy/AmazonAPIGatewayAdministrator
+      - VPCAccessPolicy: {}
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+      VpcConfig:
+        SubnetIds:
+        - Ref: VPCsubnet1
+        - Ref: VPCsubnet2
+        SecurityGroupIds:
+        - Ref: VPCsecuritygroup

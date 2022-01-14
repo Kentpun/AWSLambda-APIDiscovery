@@ -1,0 +1,20 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "APIDiscovery-APIDiscoveryStack-uat"
+s3_bucket = "starbucks-app-lambda-uat"
+s3_prefix = "APIDiscovery-APIDiscoveryStack-uat"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = """
+                        VPCsubnet1=\"subnet-0a8785e60207d1403\" 
+                        VPCsubnet2=\"subnet-0ab563e831dcce6d9\" 
+                        VPCsecuritygroup=\"sg-069870a195a032238\" 
+                        Region=\"ap-southeast-1\"
+                        NodeEnv=\"development\"
+                        APIStage=\"uat\"
+                    """
+image_repositories = []
