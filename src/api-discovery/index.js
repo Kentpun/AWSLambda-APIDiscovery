@@ -6,8 +6,8 @@ module.exports = {
     getEndpoint: async function(path, environment) {
         var position = null
         while (true) {
-            var [id, nextPosition] = await this.findEndpoint(path, environment, position);
-            if (id != null) return await this.generateEndpoint(id)
+            var [id, vpceid, nextPosition] = await this.findEndpoint(path, environment, position);
+            if (id != null) return await this.generateEndpoint(id, vpceid)
             if (nextPosition == null) break
             position = nextPosition
         }
@@ -26,12 +26,17 @@ module.exports = {
                     reject(err);
                 }
                 var apiObject = data.items.find(out =>  out.name.substr(0, out.name.indexOf('-')) === path && out.name.substr(out.name.lastIndexOf('-') + 1) === environment);
-                resolve([(apiObject) ? ((apiObject.id) ? apiObject.id : null) : null, (data) ? (data.position) ? data.position : null : null])
+                resolve([(apiObject) ? ((apiObject.id) ? apiObject.id : null) : null, (apiObject) ? ((apiObject.endpointConfiguration.vpcEndpointIds) ? apiObject.endpointConfiguration.vpcEndpointIds[0] : null) : null, (data) ? (data.position) ? data.position : null : null])
             })
         })
     },
-    generateEndpoint: async function(id) {
-        return `https://${id}.execute-api.${region}.amazonaws.com`
+    generateEndpoint: async function(id, vpceid) {
+        if (vpceid != null) {
+            return `https://${id}-${vpceid}.execute-api.${region}.amazonaws.com`
+        }
+        else {
+            return `https://${id}.execute-api.${region}.amazonaws.com`
+        }
     }
 }
 

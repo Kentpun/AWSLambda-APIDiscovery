@@ -12,16 +12,18 @@ Parameters:
   VPCsecuritygroup:
     Type: String
     Description: Subnet group id
-  Region: 
-    Type: String 
-    Description: region 
-  NodeEnv: 
+  Region:
     Type: String
-    Description: node env 
-  APIStage: 
-    Type: String 
+    Description: region
+  NodeEnv:
+    Type: String
+    Description: node env
+  APIStage:
+    Type: String
     Description: api stage
-  
+  FunctionName:
+    Type: String
+    Description: FunctionName
 
 Globals:
   Function:
@@ -30,7 +32,7 @@ Globals:
     Runtime: nodejs14.x
     Environment:
       Variables:
-        Region: !Ref Region 
+        Region: !Ref Region
         NODE_ENV: !Ref NodeEnv
         API_Stage: !Ref APIStage
 
@@ -38,7 +40,7 @@ Resources:
   APIDiscoveryFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: APIDiscoveryFunction
+      FunctionName: !Ref FunctionName
       CodeUri: src/
       Events:
         ScheduledFunction:

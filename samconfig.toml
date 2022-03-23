@@ -1,7 +1,7 @@
 version = 0.1
 [default]
 [default.deploy]
-[default.deploy.parameters]
+[uat.deploy.parameters]
 stack_name = "APIDiscovery-APIDiscoveryStack-uat"
 s3_bucket = "starbucks-app-lambda-uat"
 s3_prefix = "APIDiscovery-APIDiscoveryStack-uat"
@@ -16,5 +16,25 @@ parameter_overrides = """
                         Region=\"ap-southeast-1\"
                         NodeEnv=\"development\"
                         APIStage=\"uat\"
+                        FunctionName=\"APIDiscoveryFunction\"
+                    """
+image_repositories = []
+
+[sit.deploy.parameters]
+stack_name = "APIDiscovery-APIDiscoveryStack-sit"
+s3_bucket = "starbucks-app-lambda-sit"
+s3_prefix = "APIDiscovery-APIDiscoveryStack-sit"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = """
+                        VPCsubnet1=\"subnet-0d8bcf91833d87308\"
+                        VPCsubnet2=\"subnet-064fc90fe6af3daf2\"
+                        VPCsecuritygroup=\"sg-03b65480d15f3586e\"
+                        Region=\"ap-southeast-1\"
+                        NodeEnv=\"development\"
+                        APIStage=\"sit\"
+                        FunctionName=\"APIDiscoverySITFunction\"
                     """
 image_repositories = []
