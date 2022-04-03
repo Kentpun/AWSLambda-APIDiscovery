@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# project-specific
+samconfig.toml
+
 # dependencies
 cert/
 tls/
@@ -147,4 +150,3 @@ kvcreds/
 ui/build/
 tree.*
 temp/
-

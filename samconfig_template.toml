@@ -1,0 +1,40 @@
+version = 0.1
+[default]
+[default.deploy]
+[uat.deploy.parameters]
+stack_name = "APIDiscovery-APIDiscoveryStack-uat"
+s3_bucket = "placeholder"
+s3_prefix = "APIDiscovery-APIDiscoveryStack-uat"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = """
+                        VPCsubnet1=\"subnet-\"
+                        VPCsubnet2=\"subnet-\"
+                        VPCsecuritygroup=\"sg-\"
+                        Region=\"ap-southeast-1\"
+                        NodeEnv=\"development\"
+                        APIStage=\"uat\"
+                        FunctionName=\"APIDiscoveryFunction\"
+                    """
+image_repositories = []
+
+[sit.deploy.parameters]
+stack_name = "APIDiscovery-APIDiscoveryStack-sit"
+s3_bucket = "placeholder"
+s3_prefix = "APIDiscovery-APIDiscoveryStack-sit"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = """
+                        VPCsubnet1=\"subnet-\"
+                        VPCsubnet2=\"subnet-\"
+                        VPCsecuritygroup=\"sg-\"
+                        Region=\"ap-southeast-1\"
+                        NodeEnv=\"development\"
+                        APIStage=\"sit\"
+                        FunctionName=\"APIDiscoverySITFunction\"
+                    """
+image_repositories = []
