@@ -1,6 +1,6 @@
 const dynamoose = require('dynamoose')
 
-const waitTimeRangeSchema = new dynamoose.Schema(
+const apiEndpointSchema = new dynamoose.Schema(
     {
         endpoint_name: {
             type: String,
@@ -16,4 +16,4 @@ const waitTimeRangeSchema = new dynamoose.Schema(
     }
 )
 
-module.exports = waitTimeRangeSchema
+module.exports = apiEndpointSchema

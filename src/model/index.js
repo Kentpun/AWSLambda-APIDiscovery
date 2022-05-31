@@ -17,5 +17,5 @@ if (isOffline === 'true') {
 dynamoose.model.defaults.set(require('./general_config'));
 
 module.exports = {
-  StoreWaitTime: dynamoose.model('APIEndpoint', require('./api_endpoint')),
+  APIEndpoint: dynamoose.model('APIEndpoint', require('./api_endpoint')),
 }

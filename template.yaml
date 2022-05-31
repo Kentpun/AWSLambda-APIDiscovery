@@ -52,6 +52,7 @@ Resources:
         - VPCAccessPolicy: {}
         - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
         - arn:aws:iam::aws:policy/AmazonSSMFullAccess
+        - arn:aws:iam::691034704391:policy/LambdaDynamoDBCRUDExecutionPolicy
       VpcConfig:
         SubnetIds:
           - !Ref VPCsubnet1
