@@ -1,19 +1,26 @@
 const ssm = require('./SSM')
 const api = require('../api-discovery')
+const {APIEndpoint} = require('../model');
 
 module.exports = {
   findURL: async function(path, environment, service) {
-        var endpoint = await api.getEndpoint(path, environment)
-        var name = String("/" + process.env.API_Stage + "/API/Endpoint/" + service)
-        const params = {
-            Name: name, /* required */
-            Value: endpoint, /* required */
-            DataType: 'text',
-            Description: 'endpoint for API for service: ' + service,
-            Overwrite: true,
-            Type: "String"
-        }
-        await ssm.putParameter(params).promise();
+    var endpoint = await api.getEndpoint(path, environment)
+    var name = String("/" + process.env.API_Stage + "/API/Endpoint/" + service)
+    const params = {
+        Name: name, /* required */
+        Value: endpoint, /* required */
+        DataType: 'text',
+        Description: 'endpoint for API for service: ' + service,
+        Overwrite: true,
+        Type: "String"
+    }
+    await ssm.putParameter(params).promise();
+    // add endpoint to dynamoDB
+    const endpointRecord = new APIEndpoint({
+      endpoint_name: name,
+      value: endpoint
+    });
+    await endpointRecord.save();
   },
   generateEndpoints: async function() {
         var token = null

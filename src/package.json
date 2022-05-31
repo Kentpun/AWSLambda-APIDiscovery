@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.1043.0",
+    "dynamoose": "^2.8.2",
     "log4js": "^6.3.0"
   },
   "scripts": {

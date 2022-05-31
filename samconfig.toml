@@ -38,3 +38,22 @@ parameter_overrides = """
                         FunctionName=\"APIDiscoverySITFunction\"
                     """
 image_repositories = []
+
+[prod.deploy.parameters]
+stack_name = "APIDiscovery-APIDiscoveryStack-produ"
+s3_bucket = "starbucks-app-lambda-produ"
+s3_prefix = "APIDiscovery-APIDiscoveryStack-produ"
+region = "ap-southeast-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = """
+                        VPCsubnet1=\"subnet-09d5749501cdcce6f\"
+                        VPCsubnet2=\"subnet-03d5f45c3fbde8887\"
+                        VPCsecuritygroup=\"sg-0dbeaa1e244e777bc\"
+                        Region=\"ap-southeast-1\"
+                        NodeEnv=\"development\"
+                        APIStage=\"produ\"
+                        FunctionName=\"APIDiscoveryFunction\"
+                    """
+image_repositories = []
